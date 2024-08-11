@@ -1,5 +1,6 @@
 const UserService = require('../services/userService.js');
-const sendEmail = require('../utils/sendEmail.js');
+// const sendEmailMailerSend = require('../utils/sendEmailMailerSend.js');
+const AuthService = require('../services/authService.js');
 
 class UserController {
     static async getAllUsers(req, res) {
@@ -19,12 +20,14 @@ class UserController {
             res.status(500).json({ error: error.message });
         }
     }
-    
+
     static async createUser(req, res) {
         try {
+            const authUser = await AuthService.createUser(req.body.email, req.body.password);
+            req.body.auth_uid = authUser.uid;
             const user = await UserService.createUser(req.body);
             // quitar el comentario para enviar el correo
-            // sendEmail([user.email], 'Bienvenido', 'Gracias por registrarte en nuestra plataforma');
+            // sendEmailMailerSend([user.email], 'Bienvenido', 'Gracias por registrarte en nuestra plataforma', "sadasdas");
 
             res.status(201).json(user);
         } catch (error) {
@@ -45,6 +48,33 @@ class UserController {
         try {
             await UserService.deleteUser(req.params.id);
             res.status(204).end();
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
+
+    static async getUserByUid(req, res) {
+        try {
+            console.log("req.body", req.body);
+            const user = await UserService.getUserByUid(req.body.uid);
+            res.json(user);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
+
+    static async uploadProfilePicture(req, res) {
+        try {
+            const uid = req.body.uid;
+            const file = req.file;
+
+            if (!file) {
+                return res.status(400).json({ error: 'No file uploaded' });
+            }
+
+            const profileImgUrl = await UserService.uploadUserProfilePicture(uid, file);
+
+            res.status(200).json({ message: 'Foto de perfil de usario actualizada correctamnete', user: profileImgUrl });
         } catch (error) {
             res.status(500).json({ error: error.message });
         }

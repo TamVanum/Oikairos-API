@@ -13,10 +13,12 @@ admin.initializeApp({
     storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
     messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
     appId: process.env.FIREBASE_APP_ID,
-    measurementId: process.env.FIREBASE_MEASUREMENT_ID
+    measurementId: process.env.FIREBASE_MEASUREMENT_ID,
+    storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
 });
 
 const db = admin.firestore();
 const auth = admin.auth();
+const bucket = admin.storage().bucket();
 
-module.exports = {db, auth};
+module.exports = {db, auth, bucket};

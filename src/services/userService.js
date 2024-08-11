@@ -24,6 +24,15 @@ class UserService {
     static async deleteUser(id) {
         return userRepository.delete(id);
     }
+
+    static async getUserByUid(uid) {
+        return userRepository.getUserByUid(uid);
+    }
+
+    static async uploadUserProfilePicture(uid, file) {
+        // Aquí podrías agregar validaciones adicionales si es necesario
+        return userRepository.updateUserProfilePicture(uid, file);
+    }
 }
 
 module.exports = UserService;

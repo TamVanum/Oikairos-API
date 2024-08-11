@@ -17,7 +17,7 @@ const sentFrom = new Sender("you@trial-o65qngkmd7wlwr12.mlsender.net", "Oikarium
  * @param {string} setText - The plain text content of the email.
  * @returns {Promise<void>} - A promise that resolves when the email is sent successfully, or rejects with an error if there was a problem sending the email.
  */
-const sendEmail = async (recipients, subject, setHtml, setText) => {
+const sendEmailMailerSend = async (recipients, subject, setHtml, setText) => {
   try {
     const sendToMails = recipients.map(email => new Recipient(email));
 
@@ -36,4 +36,4 @@ const sendEmail = async (recipients, subject, setHtml, setText) => {
   }
 }
 
-module.exports = sendEmail;
+module.exports = sendEmailMailerSend;
