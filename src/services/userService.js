@@ -14,6 +14,8 @@ class UserService {
     }
 
     static async createUser(userData) {
+        userData.created_at = new Date();
+        userData.profile_img_url = ''
         return userRepository.create(userData);
     }
 

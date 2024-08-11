@@ -25,6 +25,8 @@ class UserController {
         try {
             const authUser = await AuthService.createUser(req.body.email, req.body.password);
             req.body.auth_uid = authUser.uid;
+            delete req.body.password;
+            console.log("req.body", req.body);
             const user = await UserService.createUser(req.body);
             // quitar el comentario para enviar el correo
             // sendEmailMailerSend([user.email], 'Bienvenido', 'Gracias por registrarte en nuestra plataforma', "sadasdas");
