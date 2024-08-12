@@ -38,9 +38,9 @@ class UserRepository extends BaseRepository {
             const publicUrl = fileUpload.publicUrl();
 
             const user = await this.getUserByUid(uid);
-            this.collection.doc(user.id).update({ profile_img_url: publicUrl });
+            this.collection.doc(user.id).update({ avatar: publicUrl });
             
-            return { ...user, profile_img_url: publicUrl }; 
+            return { ...user, avatar: publicUrl }; 
         } catch (error) {
             console.error('Error al subir la foto de perfil:', error);
             throw new Error('Error al subir la foto de perfil');

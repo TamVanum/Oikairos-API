@@ -15,7 +15,7 @@ class UserService {
 
     static async createUser(userData) {
         userData.created_at = new Date();
-        userData.profile_img_url = ''
+        userData.avatar = userData.name.substring(0, 1).toUpperCase();
         return userRepository.create(userData);
     }
 
