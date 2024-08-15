@@ -35,6 +35,14 @@ class UserService {
         // Aquí podrías agregar validaciones adicionales si es necesario
         return userRepository.updateUserProfilePicture(uid, file);
     }
+
+    static async getMe(uid) {
+        return userRepository.getMe(uid);
+    }
+
+    static async updateMe(uid, data) {
+        return userRepository.updateMe(uid, data);
+    }
 }
 
 module.exports = UserService;

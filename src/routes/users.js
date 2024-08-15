@@ -8,11 +8,13 @@ const multer = require('multer');
 const upload = multer({ storage: multer.memoryStorage() });
 
 
-router.get('/',verifyFirebaseToken, UserController.getAllUsers);
+router.get('/me', verifyFirebaseToken, UserController.getMe);
+router.get('/', verifyFirebaseToken, UserController.getAllUsers);
 router.get('/:id', UserController.getUserById);
 router.post('/', validateUser, UserController.createUser);
 router.put('/:id', UserController.updateUser);
 router.delete('/:id', UserController.deleteUser);
 router.post('/uid/', UserController.getUserByUid);
-router.patch('/profilePicture', upload.single('file'), (req, res) => UserController.uploadProfilePicture(req, res));
+router.patch('/me/avatar', verifyFirebaseToken, upload.single('file'), (req, res) => UserController.uploadProfilePicture(req, res));
+router.patch('/me', verifyFirebaseToken, UserController.updateMe);
 module.exports = router;

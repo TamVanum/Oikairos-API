@@ -26,7 +26,6 @@ class UserController {
             const authUser = await AuthService.createUser(req.body.email, req.body.password);
             req.body.auth_uid = authUser.uid;
             delete req.body.password;
-            console.log("req.body", req.body);
             const user = await UserService.createUser(req.body);
             // quitar el comentario para enviar el correo
             // sendEmailMailerSend([user.email], 'Bienvenido', 'Gracias por registrarte en nuestra plataforma', "sadasdas");
@@ -57,7 +56,6 @@ class UserController {
 
     static async getUserByUid(req, res) {
         try {
-            console.log("req.body", req.body);
             const user = await UserService.getUserByUid(req.body.uid);
             res.json(user);
         } catch (error) {
@@ -67,7 +65,7 @@ class UserController {
 
     static async uploadProfilePicture(req, res) {
         try {
-            const uid = req.body.uid;
+            const uid = req.user.uid;
             const file = req.file;
 
             if (!file) {
@@ -81,6 +79,30 @@ class UserController {
             res.status(500).json({ error: error.message });
         }
     }
+
+    static async getMe(req, res) {
+        try {
+            const uid = req.user.uid;
+            const user = await UserService.getMe(uid);
+            res.status(200).json(user);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
+
+    static async updateMe(req, res) {
+        try {
+            const uid = req.user.uid
+            const data = req.body;
+
+            const user = await UserService.updateMe(uid, data);
+
+            res.status(200).json(user);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
+
 }
 
 module.exports = UserController;

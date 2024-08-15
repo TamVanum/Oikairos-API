@@ -38,7 +38,6 @@ const authMiddleware = async (req, res, next) => {
 
     try {
         const decodedToken = await auth.verifyIdToken(token);
-        console.log(decodedToken.uid);
         req.user = decodedToken;
         next();
     } catch (error) {
