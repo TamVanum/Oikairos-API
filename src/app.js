@@ -5,6 +5,8 @@ const cookieParser = require('cookie-parser');
 
 const indexRouter = require('./routes/index.js');
 const usersRouter = require('./routes/users.js');
+const userIntentsRouter = require('./routes/userIntents.js');
+const plansRouter = require('./routes/plans.js');
 const authRoutes = require('./routes/auth.js');
 
 // const authMiddleware = require('./middlewares/firebaseJwtAuth.js');
@@ -21,6 +23,8 @@ app.use(cookieParser());
 
 app.use('/api', indexRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/usersIntents', userIntentsRouter);
+app.use('/api/plans', plansRouter);
 app.use('/auth', authRoutes);
 
 
