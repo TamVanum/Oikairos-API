@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const serviceAccount = require('../config/firebaseServiceAccount.json');
+const serviceAccount = require('../config/firebaseOikarium-2.json');
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -13,8 +13,9 @@ admin.initializeApp({
     storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
     messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
     appId: process.env.FIREBASE_APP_ID,
-    measurementId: process.env.FIREBASE_MEASUREMENT_ID,
+    // measurementId: process.env.FIREBASE_MEASUREMENT_ID,
     storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+    databaseURL: "https://oikarium-default-rtdb.firebaseio.com"
 });
 
 const db = admin.firestore();

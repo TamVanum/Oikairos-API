@@ -1,3 +1,5 @@
 .env
 node_modules
 src/config/firebaseServiceAccount.json
+src/config/firebaseHdiropongConfig.json
+src/config/firebaseOikarium-2.json
