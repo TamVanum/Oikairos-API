@@ -15,7 +15,7 @@ admin.initializeApp({
     appId: process.env.FIREBASE_APP_ID,
     // measurementId: process.env.FIREBASE_MEASUREMENT_ID,
     storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-    databaseURL: "https://oikarium-default-rtdb.firebaseio.com"
+    databaseURL: "https://okairum-v2-default-rtdb.firebaseio.com"
 });
 
 const db = admin.firestore();
