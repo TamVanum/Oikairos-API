@@ -1,4 +1,4 @@
-const { db } = require('../utils/firebase.js');
+const { db } = require('../config/firebase.js');
 const BaseRepository = require('./baseRepository.js');
 
 class PlanRepository extends BaseRepository {

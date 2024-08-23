@@ -1,11 +1,20 @@
-const express = require('express');
+const http = require('http');
+const app = require('./app');
+const { initMQTTBroker } = require('./config/mqtt');
+const { initSocketServer } = require('./socketServer');
+
 const dotenv = require('dotenv');
 
 dotenv.config();
 
-const app = require('./app');
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
+const server = http.createServer(app);
+
+const io = initSocketServer(server);
+
+initMQTTBroker(server, io);
+
+server.listen(PORT, () => {
     console.log(`Server is running on port http://localhost:${PORT}/api`);
 });

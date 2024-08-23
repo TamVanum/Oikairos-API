@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const serviceAccount = require('../config/firebaseOikarium-2.json');
+const serviceAccount = require('./firebaseOikarium-2.json');
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),

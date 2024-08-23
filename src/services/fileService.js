@@ -1,4 +1,4 @@
-const { bucket } = require("../utils/firebase");
+const { bucket } = require("../config/firebase");
 
 
 class FileService {
