@@ -17,5 +17,5 @@ client.on('connect', () => {
 
         client.publish(`esp8266/${deviceId}/data`, data);
         console.log(`Published data from ${deviceId}: ${data}`);
-    }, 5000); // Publish data every 5 seconds
+    }, 5000);
 });

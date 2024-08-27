@@ -4,9 +4,14 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 
 const indexRouter = require('./routes/index.js');
-const usersRouter = require('./routes/users.js');
-const userIntentsRouter = require('./routes/userIntents.js');
-const plansRouter = require('./routes/plans.js');
+const usersRouter = require('./routes/usersRouter.js');
+const userIntentsRouter = require('./routes/userIntentsRouter.js');
+const plansRouter = require('./routes/plansRouter.js');
+const plantsMetricsRouter = require('./routes/plantsMetricsRouter.js');
+const hydroponicsRouter = require('./routes/hydroponicsRouter.js');
+const plantHistoryRouter = require('./routes/plantHistoryRouter.js');
+const plantMetricSnapshotRouter = require('./routes/plantMetricSnapshotRouter.js');
+
 const authRoutes = require('./routes/auth.js');
 
 // const authMiddleware = require('./middlewares/firebaseJwtAuth.js');
@@ -25,9 +30,12 @@ app.use('/api', indexRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/usersIntents', userIntentsRouter);
 app.use('/api/plans', plansRouter);
+app.use('/api/plantMetric', plantsMetricsRouter);
+app.use('/api/hydroponic', hydroponicsRouter);
+app.use('/api/plantHistory', plantHistoryRouter);
+app.use('/api/plantMetricSnapshot', plantMetricSnapshotRouter);
+
 app.use('/auth', authRoutes);
-
-
 
 // app.use(authMiddleware);
 module.exports = app;
