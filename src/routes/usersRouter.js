@@ -17,4 +17,5 @@ router.delete('/:id', UserController.deleteUser);
 router.post('/uid/', UserController.getUserByUid);
 router.patch('/me/avatar', verifyFirebaseToken, upload.single('file'), (req, res) => UserController.uploadProfilePicture(req, res));
 router.patch('/me', verifyFirebaseToken, UserController.updateMe);
+router.post('/me/hydroponic/', verifyFirebaseToken, UserController.associateToHydroponic);
 module.exports = router;

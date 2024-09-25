@@ -21,6 +21,7 @@ client.on('connect', () => {
             ambient_temperature: getRandomInRange(20, 35), // Ambient temperature range 20-35°C
             ph_level: getRandomInRange(5.5, 6.5), // Ideal pH level for hydroponics is 5.5-6.5
             electrical_conductivity: getRandomInRange(700, 1200, 0), // Conductivity in μS/cm, typical range 700-1200 μS/cm
+            timestamp: new Date().toISOString()
         });
 
         client.publish(`esp8266/${deviceId}/data`, data);

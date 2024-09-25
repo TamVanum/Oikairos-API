@@ -22,6 +22,7 @@ class PlantMetricSnapshotService {
     static async deletePlantMetricSnapshot(id) {
         return plantMetricSnapshotRepository.delete(id);
     }
+
 }
 
 module.exports = PlantMetricSnapshotService;

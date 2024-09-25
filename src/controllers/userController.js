@@ -103,6 +103,19 @@ class UserController {
         }
     }
 
+    static async associateToHydroponic(req, res) {
+        try {
+            const hydroponicId = req.body.hydroponicId;
+            const uid = req.user.uid;
+
+            const hydroponic = await UserService.associateToHydroponic(hydroponicId, uid);
+
+            res.status(200).json(hydroponic);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
+
 }
 
 module.exports = UserController;

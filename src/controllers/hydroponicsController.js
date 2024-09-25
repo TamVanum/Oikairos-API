@@ -45,6 +45,57 @@ class HydroponicsController {
             res.status(500).json({ error: error.message });
         }
     }
+
+    static async getHydroponicByUserId(req, res) {
+        try {
+            const hydroponics = await HydroponicsService.getHydroponicByUserId(req.params.userId);
+            res.json(hydroponics);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
+
+    static async getHydroponicsWithPlantsByUserId(req, res) {
+        try {
+            const hydroponics = await HydroponicsService.getHydroponicsWithPlantsByUserId(req.params.userId);
+            res.json(hydroponics);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
+
+    static async getHydroponicMetricsInUse(req, res) {
+        try {
+            const hydroponicMetrics = await HydroponicsService.getHydroponicMetricsInUse(req.params.hydroponicId);
+            res.json(hydroponicMetrics);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
+
+    static async getHydroponicByUserIdInArray(req, res) {
+        try {
+            const hydroponics = await HydroponicsService.getHydroponicByUserIdInArrayWithoutUsersData(req.user.uid);
+            res.json(hydroponics);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
+
+    static async updatePlantHistoryRoomId(req, res) {
+        const { deviceId, roomId } = req.body;
+
+        if (!deviceId) {
+            return res.status(400).json({ error: 'deviceId and roomId are required' });
+        }
+
+        try {
+            await HydroponicsService.updatePlantHistoryRoomId(deviceId, roomId);
+            return res.status(200).json({ message: `Room ID ${roomId} sent to device ${deviceId}` });
+        } catch (error) {
+            return res.status(500).json({ error: error.message });
+        }
+    }
 }
 
 module.exports = HydroponicsController;

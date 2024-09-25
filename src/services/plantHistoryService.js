@@ -22,6 +22,11 @@ class PlantHistoryService {
     static async deletePlantHistory(id) {
         return plantHistoryRepository.delete(id);
     }
+
+    // Optimización de inicio de nuevo ciclo con transacción
+    static async startNewPlantHistoryCicle(hydroponicId) {
+        return await plantHistoryRepository.startNewPlantHistoryTransaction(hydroponicId);
+    }
 }
 
 module.exports = PlantHistoryService;

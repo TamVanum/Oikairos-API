@@ -1,6 +1,8 @@
 const UserRepository = require('../repositories/userRepository.js');
+const HydroponicsRepository = require('../repositories/hydroponicsRepository.js');
 
 const userRepository = new UserRepository()
+const hydroponicsRepository = new HydroponicsRepository()
 
 const users = [];
 
@@ -42,6 +44,11 @@ class UserService {
 
     static async updateMe(uid, data) {
         return userRepository.updateMe(uid, data);
+    }
+
+    static async associateToHydroponic(hydroponicId, uid) {
+        const hydroponic = await hydroponicsRepository.associateUserToHydroponic(hydroponicId, uid);
+        return hydroponic;
     }
 }
 

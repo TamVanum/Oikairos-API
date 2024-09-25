@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors')
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
+const { getMQTTBrokerInstance } = require('./config/mqtt.js');
 
 const indexRouter = require('./routes/index.js');
 const usersRouter = require('./routes/usersRouter.js');
@@ -30,12 +31,11 @@ app.use('/api', indexRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/usersIntents', userIntentsRouter);
 app.use('/api/plans', plansRouter);
-app.use('/api/plantMetric', plantsMetricsRouter);
+app.use('/api/plant-metric', plantsMetricsRouter);
 app.use('/api/hydroponic', hydroponicsRouter);
-app.use('/api/plantHistory', plantHistoryRouter);
-app.use('/api/plantMetricSnapshot', plantMetricSnapshotRouter);
+app.use('/api/plant-history', plantHistoryRouter);
+app.use('/api/plant-metric-snapshot', plantMetricSnapshotRouter);
 
 app.use('/auth', authRoutes);
 
-// app.use(authMiddleware);
 module.exports = app;

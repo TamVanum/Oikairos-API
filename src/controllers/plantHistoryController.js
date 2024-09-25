@@ -45,6 +45,15 @@ class PlantHistoryController {
             res.status(500).json({ error: error.message });
         }
     }
+
+    static async startNewPlantHistoryCicle(req, res) {
+        try {
+            const plantHistory = await PlantHistoryService.startNewPlantHistoryCicle(req.body.hydroponicId);
+            res.status(201).json(plantHistory);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
 }
 
 module.exports = PlantHistoryController;
