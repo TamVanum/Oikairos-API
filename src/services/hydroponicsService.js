@@ -63,24 +63,24 @@ class HydroponicsService {
         return hydroponicData;
     }
 
-    static async updatePlantHistoryRoomId(deviceId, roomId) {
+    static async updatePlantHistoryRoomId(hydroponicId, historyId) {
         try {
             const aedes = getMQTTBrokerInstance();
 
             aedes.publish({
-                topic: `esp8266/${deviceId}/setup`,
-                payload: JSON.stringify({ roomId }),
+                topic: `esp8266/${hydroponicId}/setup`,
+                payload: JSON.stringify({ historyId }),
                 qos: 0,
                 retain: false
             }, (err) => {
                 if (err) {
                     throw new Error('Failed to publish to MQTT broker');
                 }
-                console.log(`Published roomId ${roomId} to device ${deviceId}`);
+                console.log(`Published historyId ${historyId} to device ${deviceId}`);
             });
 
         } catch (error) {
-            console.error('Error sending roomId to device:', error);
+            console.error('Error sending historyId to device:', error);
             throw error;
         }
     }

@@ -6,7 +6,6 @@ class PlantHistoryRepository extends BaseRepository {
         super(db.collection('plantHistory'));
     }
 
-    // Obtener el historial más reciente para un hydroponicId
     async getLatestPlantHistoryByHydroponicId(hydroponicId) {
         const plantHistorySnapshot = await this.collection
             .where('hydroponicId', '==', hydroponicId)
@@ -16,17 +15,15 @@ class PlantHistoryRepository extends BaseRepository {
         return plantHistorySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))[0] || null;
     }
 
-    // Finalizar el ciclo de un historial existente
     async endPlantHistoryCicle(plantHistoryId) {
         const plantHistory = await this.getById(plantHistoryId);
-        if (plantHistory && !plantHistory.endDate) { // Asegurarse de que no se sobreescriba si ya tiene endDate
+        if (plantHistory && plantHistory.endDate == null) {
             plantHistory.endDate = new Date();
             return await this.update(plantHistoryId, plantHistory);
         }
-        return null; // No se necesita realizar ninguna operación si el ciclo ya está cerrado
+        return null;
     }
 
-    // Iniciar un nuevo ciclo de historial de plantas
     async newPlantHistoryCicle(hydroponicId) {
         const data = {
             hydroponicId,
@@ -37,7 +34,6 @@ class PlantHistoryRepository extends BaseRepository {
         return await this.create(data);
     }
 
-    // Usar una transacción para finalizar el ciclo anterior e iniciar uno nuevo
     async startNewPlantHistoryTransaction(hydroponicId) {
         return db.runTransaction(async (transaction) => {
             const latestPlantHistory = await this.getLatestPlantHistoryByHydroponicId(hydroponicId);

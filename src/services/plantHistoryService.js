@@ -1,4 +1,5 @@
 const PlantHistoryRepository = require('../repositories/plantHistoryRepository.js');
+const HydroponicsService = require('../services/hydroponicsService.js');
 
 const plantHistoryRepository = new PlantHistoryRepository();
 
@@ -25,7 +26,9 @@ class PlantHistoryService {
 
     // Optimización de inicio de nuevo ciclo con transacción
     static async startNewPlantHistoryCicle(hydroponicId) {
-        return await plantHistoryRepository.startNewPlantHistoryTransaction(hydroponicId);
+        const new_cycle = await plantHistoryRepository.startNewPlantHistoryTransaction(hydroponicId);
+        const connect_to_new_cycle = await HydroponicsService.updatePlantHistoryRoomId(hydroponicId, new_cycle);
+        return new_cycle;
     }
 }
 
