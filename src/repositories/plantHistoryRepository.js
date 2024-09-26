@@ -37,7 +37,6 @@ class PlantHistoryRepository extends BaseRepository {
     async startNewPlantHistoryTransaction(hydroponicId) {
         return db.runTransaction(async (transaction) => {
             const latestPlantHistory = await this.getLatestPlantHistoryByHydroponicId(hydroponicId);
-            console.log(latestPlantHistory.id);
             if (latestPlantHistory && !latestPlantHistory.endDate) {
                 latestPlantHistory.endDate = new Date();
                 transaction.update(this.collection.doc(latestPlantHistory.id), latestPlantHistory);

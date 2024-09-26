@@ -100,6 +100,7 @@ class HydroponicsService {
         const new_cycle = await plantHistoryRepository.startNewPlantHistoryTransaction(hydroponicId);
         const activate = await HydroponicsService.activateHydroponic(hydroponicId);
         const connect_to_new_cycle = await HydroponicsService.updatePlantHistoryRoomId(hydroponicId, new_cycle);
+        const update_current_cycle = await hydroponicsRepository.update(hydroponicId, { "currentCycle": new_cycle });
         return new_cycle;
     }
 
