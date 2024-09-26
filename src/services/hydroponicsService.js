@@ -63,20 +63,31 @@ class HydroponicsService {
         return hydroponicData;
     }
 
-    static async updatePlantHistoryRoomId(hydroponicId, historyId) {
+    static async desactivateHydroponic(hydroponicId) {
+        return hydroponicsRepository.update(hydroponicId, { "active": false });
+    }
+
+    static async activateHydroponic(hydroponicId) {
+        return hydroponicsRepository.update(hydroponicId, { "active": true });
+    }
+
+    static async updatePlantHistoryRoomId(hydroponicId, roomId) {
         try {
             const aedes = getMQTTBrokerInstance();
+            if (roomId === null) {
+                roomId = "";
+            }
 
             aedes.publish({
                 topic: `esp8266/${hydroponicId}/setup`,
-                payload: JSON.stringify({ historyId }),
+                payload: JSON.stringify({ roomId }),
                 qos: 0,
                 retain: false
             }, (err) => {
                 if (err) {
                     throw new Error('Failed to publish to MQTT broker');
                 }
-                console.log(`Published historyId ${historyId} to device ${deviceId}`);
+                console.log(`Published historyId ${roomId} to hydroponic ${hydroponicId}`);
             });
 
         } catch (error) {
@@ -85,6 +96,19 @@ class HydroponicsService {
         }
     }
 
+    static async startNewPlantHistoryCicle(hydroponicId) {
+        const new_cycle = await plantHistoryRepository.startNewPlantHistoryTransaction(hydroponicId);
+        const activate = await HydroponicsService.activateHydroponic(hydroponicId);
+        const connect_to_new_cycle = await HydroponicsService.updatePlantHistoryRoomId(hydroponicId, new_cycle);
+        return new_cycle;
+    }
+
+    static async endPlantHistoryCicle(hydroponicId) {
+        const cycle = await plantHistoryRepository.endPlantHistoryTransaction(hydroponicId);
+        const desactivate = await HydroponicsService.desactivateHydroponic(hydroponicId);
+        const connect_to_none_hydroponic = await HydroponicsService.updatePlantHistoryRoomId(hydroponicId, null);
+        return cycle;
+    }
     // static async asociatePlantMetricsToHydroponic(hydroponicId, plantMetricId) {
     //     const plantMetric = await plantMetricsRepository.getById(plantMetricId);
     //     const hydroponic = await hydroponicsRepository.getById(hydroponicId);

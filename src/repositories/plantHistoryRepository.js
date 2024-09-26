@@ -37,7 +37,7 @@ class PlantHistoryRepository extends BaseRepository {
     async startNewPlantHistoryTransaction(hydroponicId) {
         return db.runTransaction(async (transaction) => {
             const latestPlantHistory = await this.getLatestPlantHistoryByHydroponicId(hydroponicId);
-
+            console.log(latestPlantHistory.id);
             if (latestPlantHistory && !latestPlantHistory.endDate) {
                 latestPlantHistory.endDate = new Date();
                 transaction.update(this.collection.doc(latestPlantHistory.id), latestPlantHistory);
@@ -54,6 +54,20 @@ class PlantHistoryRepository extends BaseRepository {
             transaction.set(newPlantHistoryRef, newPlantHistoryData);
 
             return newPlantHistoryRef.id;
+        });
+    }
+
+    async endPlantHistoryTransaction(hydroponicId) {
+        return db.runTransaction(async (transaction) => {
+            const latestPlantHistory = await this.getLatestPlantHistoryByHydroponicId(hydroponicId);
+
+            if (latestPlantHistory && !latestPlantHistory.endDate) {
+                latestPlantHistory.endDate = new Date();
+                transaction.update(this.collection.doc(latestPlantHistory.id), latestPlantHistory);
+                return latestPlantHistory.id;
+            }
+
+            return latestPlantHistory.id;
         });
     }
 }

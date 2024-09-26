@@ -1,4 +1,5 @@
 const HydroponicsService = require('../services/hydroponicsService.js');
+const PlantHistoryService = require('../services/plantHistoryService.js');
 
 class HydroponicsController {
     static async getAllHydroponics(req, res) {
@@ -94,6 +95,24 @@ class HydroponicsController {
             return res.status(200).json({ message: `Room ID ${roomId} sent to device ${deviceId}` });
         } catch (error) {
             return res.status(500).json({ error: error.message });
+        }
+    }
+
+    static async startNewPlantHistoryCicle(req, res) {
+        try {
+            const plantHistory = await HydroponicsService.startNewPlantHistoryCicle(req.body.hydroponicId);
+            res.status(201).json(plantHistory);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
+
+    static async endPlantHistoryCicle(req, res) {
+        try {
+            const plantHistory = await HydroponicsService.endPlantHistoryCicle(req.body.hydroponicId);
+            res.status(201).json(plantHistory);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
         }
     }
 }

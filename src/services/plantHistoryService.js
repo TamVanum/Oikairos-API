@@ -24,12 +24,8 @@ class PlantHistoryService {
         return plantHistoryRepository.delete(id);
     }
 
-    // Optimización de inicio de nuevo ciclo con transacción
-    static async startNewPlantHistoryCicle(hydroponicId) {
-        const new_cycle = await plantHistoryRepository.startNewPlantHistoryTransaction(hydroponicId);
-        const connect_to_new_cycle = await HydroponicsService.updatePlantHistoryRoomId(hydroponicId, new_cycle);
-        return new_cycle;
-    }
+
+
 }
 
 module.exports = PlantHistoryService;

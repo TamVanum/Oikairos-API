@@ -13,5 +13,8 @@ router.get('/user/:userId', HydroponicsController.getHydroponicByUserId);
 router.get('/user/:userId/plants', HydroponicsController.getHydroponicsWithPlantsByUserId);
 router.get('/metrics/:hydroponicId/in-use', HydroponicsController.getHydroponicMetricsInUse);
 router.post('/plant/room', HydroponicsController.updatePlantHistoryRoomId);
+router.post('/new-cycle', HydroponicsController.startNewPlantHistoryCicle);
+router.post('/end-cycle', HydroponicsController.endPlantHistoryCicle);
+// router.patch('/desactivate/:hydroponicId', HydroponicsController.desactivateHydroponic);
 
 module.exports = router;
