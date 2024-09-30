@@ -46,6 +46,17 @@ class PlantMetricSnapshotController {
         }
     }
 
+    static async addMetricSnapshot(req, res) {
+        try {
+            console.log("1")
+            const plantMetricSnapshot = await PlantMetricSnapshotService.addMetricSnapshot(req.body.hydroponicId, req.body.plantMetricId);
+            console.log("10")
+            res.json(plantMetricSnapshot);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
+
 }
 
 module.exports = PlantMetricSnapshotController;

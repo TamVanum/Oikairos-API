@@ -22,6 +22,7 @@ class PlantsMetricsController {
 
     static async createPlantMetric(req, res) {
         try {
+            req.body.user_id = req.user.uid;
             const plan = await PlantsMetricsService.createPlantMetric(req.body);
             res.status(201).json(plan);
         } catch (error) {
@@ -42,6 +43,16 @@ class PlantsMetricsController {
         try {
             await PlantsMetricsService.deletePlantMetric(req.params.id);
             res.status(204).end();
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
+
+    static async getPlantMetricMe(req, res) {
+        try {
+            const uid = req.user.uid
+            const plan = await PlantsMetricsService.getPlantMetricMe(uid);
+            res.json(plan);
         } catch (error) {
             res.status(500).json({ error: error.message });
         }

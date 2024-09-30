@@ -1,5 +1,6 @@
 const HydroponicsService = require('../services/hydroponicsService.js');
 const PlantHistoryService = require('../services/plantHistoryService.js');
+const PlantMetricSnapshotService = require('../services/plantMetricSnapshotService.js');
 
 class HydroponicsController {
     static async getAllHydroponics(req, res) {
@@ -101,6 +102,10 @@ class HydroponicsController {
     static async startNewPlantHistoryCicle(req, res) {
         try {
             const plantHistory = await HydroponicsService.startNewPlantHistoryCicle(req.body.hydroponicId);
+            // if (req.body.plantMetricId) {
+            //     const newMetricSnapshot = await PlantMetricSnapshotService.addMetricSnapshot(req.body.hydroponicId, req.body.metricId);
+            // }
+            const plantMetricSnapshot = await PlantMetricSnapshotService.createDefaultMetricSnapshot(req.body.hydroponicId, plantHistory, req.body.metricId);
             res.status(201).json(plantHistory);
         } catch (error) {
             res.status(500).json({ error: error.message });

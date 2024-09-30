@@ -3,6 +3,7 @@ const net = require('net');
 const { db } = require('./firebase');
 const admin = require('firebase-admin');
 const MQTT_BROKER_PORT = process.env.MQTT_BROKER_PORT || 1883;
+const handleHydroponicSubscription = require('./mqtt_specifics');
 
 let brokerInstance;
 
@@ -18,6 +19,17 @@ function initMQTTBroker(server, io) {
         console.log(`Client connected: ${client.id}`);
     });
 
+    aedes.on('subscribe', (subscriptions, client) => {
+        subscriptions.forEach((subscription) => {
+            const topic = subscription.topic;
+            console.log(`Client ${client.id} subscribed to topic: ${topic}`);
+
+            handleHydroponicSubscription(aedes, client, topic);
+        });
+    });
+
+
+
     aedes.on('clientDisconnect', (client) => {
         console.log(`Client disconnected: ${client.id}`);
     });
@@ -25,14 +37,14 @@ function initMQTTBroker(server, io) {
     aedes.on('publish', async (packet, client) => {
         if (client) {
             const topic = packet.topic;
-            
+
             const payload = JSON.parse(packet.payload.toString());
             payload.timestamp = new Date().toISOString();
             packet.payload = Buffer.from(JSON.stringify(payload));
 
             const message = packet.payload.toString();
             const roomId = topic.split('/')[1];
-            
+
             console.log(`Message from client ${client.id} on topic ${topic}: ${message}`);
 
             io.to(roomId).emit('message', {

@@ -1,6 +1,7 @@
 const UserService = require('../services/userService.js');
 // const sendEmailMailerSend = require('../utils/sendEmailMailerSend.js');
 const AuthService = require('../services/authService.js');
+const PlantsMetricsService = require('../services/plantsMetricsService.js');
 
 class UserController {
     static async getAllUsers(req, res) {
@@ -29,7 +30,7 @@ class UserController {
             const user = await UserService.createUser(req.body);
             // quitar el comentario para enviar el correo
             // sendEmailMailerSend([user.email], 'Bienvenido', 'Gracias por registrarte en nuestra plataforma', "sadasdas");
-
+            const create_default_metric = await PlantsMetricsService.createDefaultMetric(user.auth_uid);
             res.status(201).json(user);
         } catch (error) {
             res.status(500).json({ error: error.message });

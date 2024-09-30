@@ -6,9 +6,14 @@ class PlantMetricSnapshotRepository extends BaseRepository {
         super(db.collection('plantMetricSnapshot'));
     }
 
-    async getPlantMetricsByHydroponicId(hydroponicId){
-        const plantMetricsSnapshot = await this.collection.where('hydroponicId', '==', hydroponicId).get();
+    async getPlantMetricsByHydroponicId(hydroponicId) {
+        const plantMetricsSnapshot = await this.collection.where('hydroponicId', '==', hydroponicId).orderBy('createdAt', 'desc').get();
         return plantMetricsSnapshot.docs[0].data();
+    }
+
+    async getPlantMetricsInstanceByHydroponicId(hydroponicId) {
+        const plantMetricsSnapshot = await this.collection.where('hydroponicId', '==', hydroponicId).orderBy('createdAt', 'desc').get();
+        return plantMetricsSnapshot.docs[0];
     }
 }
 
