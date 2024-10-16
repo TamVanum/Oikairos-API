@@ -1,5 +1,5 @@
 const AuthService = require('../services/authService.js');
-const { auth } = require('../config/firebase.js');
+const { auth } = require('../../config/firebase.js');
 
 class AuthController {
     static async signIn(req, res) {

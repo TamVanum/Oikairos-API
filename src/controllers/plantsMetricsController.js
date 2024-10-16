@@ -1,5 +1,5 @@
 
-const PlantsMetricsService = require('../services/plantsMetricsService.js');
+const PlantsMetricsService = require('../hydroponic/services/plantsMetricsService.js');
 
 class PlantsMetricsController {
     static async getAllPlantsMetrics(req, res) {

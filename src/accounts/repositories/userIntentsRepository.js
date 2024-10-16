@@ -1,5 +1,5 @@
-const { db } = require("../config/firebase");
-const BaseRepository = require("./baseRepository");
+const { db } = require("../../config/firebase");
+const BaseRepository = require("../../shared/baseRepository");
 
 
 class UserIntentsRepository extends BaseRepository {

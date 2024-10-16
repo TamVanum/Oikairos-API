@@ -1,5 +1,5 @@
 const UserRepository = require('../repositories/userRepository.js');
-const HydroponicsRepository = require('../repositories/hydroponicsRepository.js');
+const HydroponicsRepository = require('../../hydroponic/repositories/hydroponicsRepository.js');
 
 const userRepository = new UserRepository()
 const hydroponicsRepository = new HydroponicsRepository()

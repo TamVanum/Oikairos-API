@@ -1,6 +1,6 @@
-const { auth } = require('../config/firebase');
+const { auth } = require('../../config/firebase');
 const jwt = require('jsonwebtoken');
-const sendMail = require('../utils/sendMail');
+const sendMail = require('../../utils/sendMail');
 
 class AuthService {
 

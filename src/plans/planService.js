@@ -1,4 +1,4 @@
-const PlanRepository = require('../repositories/planRepository.js');
+const PlanRepository = require('./planRepository.js');
 
 const planRepository = new PlanRepository()
 

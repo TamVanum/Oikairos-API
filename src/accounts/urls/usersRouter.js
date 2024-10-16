@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const UserController = require('../controllers/userController.js');
-const validateUser = require('../middlewares/validateUser.js');
+const validateUser = require('../../middlewares/validateUser.js');
 const validateUserRole = require('../middlewares/validateUserRole.js');
-const verifyFirebaseToken = require('../middlewares/firebaseAccessTokenAuth.js');
+const verifyFirebaseToken = require('../../middlewares/firebaseAccessTokenAuth.js');
 
 const multer = require('multer');
 const upload = multer({ storage: multer.memoryStorage() });

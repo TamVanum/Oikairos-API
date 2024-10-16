@@ -1,5 +1,5 @@
-const { db } = require('../config/firebase.js');
-const BaseRepository = require('./baseRepository.js');
+const { db } = require('../../config/firebase.js');
+const BaseRepository = require('../../shared/baseRepository.js');
 
 class HydroponicsRepository extends BaseRepository {
     constructor() {

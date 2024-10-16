@@ -1,7 +1,7 @@
 const UserService = require('../services/userService.js');
 // const sendEmailMailerSend = require('../utils/sendEmailMailerSend.js');
 const AuthService = require('../services/authService.js');
-const PlantsMetricsService = require('../services/plantsMetricsService.js');
+const PlantsMetricsService = require('../../hydroponic/services/plantsMetricsService.js');
 
 class UserController {
     static async getAllUsers(req, res) {

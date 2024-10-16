@@ -8,7 +8,7 @@ const plantMetricsRepository = new PlantMetricsRepository();
 const hydroponicsRepository = new HydroponicsRepository();
 const plantHistoryRepository = new PlantHistoryRepository();
 
-const { getMQTTBrokerInstance } = require('../config/mqtt');
+const { getMQTTBrokerInstance } = require('../../config/mqtt.js');
 
 class HydroponicsService {
     static async getAllHydroponics() {
