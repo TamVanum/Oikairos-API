@@ -1,7 +1,7 @@
 const mqtt = require('mqtt');
 
 // Conectar al broker MQTT
-const client = mqtt.connect('mqtt://192.168.100.76:1883');
+const client = mqtt.connect('mqtt://192.168.1.170:1883');
 
 // Función para enviar el roomId al ESP8266
 function sendRoomId(deviceId, roomId) {
