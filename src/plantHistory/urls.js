@@ -1,5 +1,5 @@
 const express = require('express');
-const PlantHistoryController = require('../controllers/plantHistoryController');
+const PlantHistoryController = require('./controller');
 const router = express.Router();
 
 router.get('/', PlantHistoryController.getAllPlantHistories);

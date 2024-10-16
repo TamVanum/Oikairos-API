@@ -1,6 +1,6 @@
 const { db } = require('../../config/firebase.js');
 const BaseRepository = require('../../shared/baseRepository.js');
-const FileService = require('../../services/fileService.js');
+const FileService = require('../../utils/fileService.js');
 
 class UserRepository extends BaseRepository {
     constructor() {
@@ -34,9 +34,8 @@ class UserRepository extends BaseRepository {
         }
     }
 
-    async updateUserProfilePicture(uid, file) {
+    async updateUserProfilePicture(uid, publicUrl) {
         try {
-            const publicUrl = await FileService.uploadFile(file);
             const user = await this.getUserDataWithoutSensitiveInfo(uid);
             this.collection.doc(user.id).update({ avatar: publicUrl });
 

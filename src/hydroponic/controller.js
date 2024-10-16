@@ -1,6 +1,6 @@
-const HydroponicsService = require('../services/hydroponicsService.js');
-const PlantHistoryService = require('../services/plantHistoryService.js');
-const PlantMetricSnapshotService = require('../services/plantMetricSnapshotService.js');
+const HydroponicsService = require('./services.js');
+const PlantHistoryService = require('../plantHistory/services.js');
+const PlantMetricSnapshotService = require('../plantMetricSnapshots/services.js');
 
 class HydroponicsController {
     static async getAllHydroponics(req, res) {

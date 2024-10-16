@@ -1,5 +1,5 @@
 const express = require('express');
-const PlantMetricSnapshotController = require('../controllers/plantMetricSnapshotController');
+const PlantMetricSnapshotController = require('./controller');
 const router = express.Router();
 
 router.get('/', PlantMetricSnapshotController.getAllPlantMetricSnapshots);

@@ -1,4 +1,4 @@
-const PlantMetricSnapshotRepository = require('../repositories/plantMetricSnapshotRepository.js');
+const PlantMetricSnapshotRepository = require('./repository.js');
 
 const plantMetricSnapshotRepository = new PlantMetricSnapshotRepository();
 

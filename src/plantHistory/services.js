@@ -1,5 +1,5 @@
-const PlantHistoryRepository = require('../repositories/plantHistoryRepository.js');
-const HydroponicsService = require('../services/hydroponicsService.js');
+const PlantHistoryRepository = require('./repository.js');
+const HydroponicsService = require('../hydroponic/services.js');
 
 const plantHistoryRepository = new PlantHistoryRepository();
 

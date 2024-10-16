@@ -1,6 +1,6 @@
 const UserRepository = require('../repositories/userRepository.js');
-const HydroponicsRepository = require('../../hydroponic/repositories/hydroponicsRepository.js');
-
+const HydroponicsRepository = require('../../hydroponic/repository.js');
+const fileUpload = require('../../utils/fileService.js');
 const userRepository = new UserRepository()
 const hydroponicsRepository = new HydroponicsRepository()
 
@@ -35,7 +35,8 @@ class UserService {
 
     static async uploadUserProfilePicture(uid, file) {
         // Aquí podrías agregar validaciones adicionales si es necesario
-        return userRepository.updateUserProfilePicture(uid, file);
+        const publicUrl = await fileUpload("profile_photos/", file);
+        return userRepository.updateUserProfilePicture(uid, publicUrl);
     }
 
     static async getMe(uid) {

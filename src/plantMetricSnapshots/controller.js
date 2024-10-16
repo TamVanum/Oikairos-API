@@ -1,4 +1,4 @@
-const PlantMetricSnapshotService = require('../services/plantMetricSnapshotService.js');
+const PlantMetricSnapshotService = require('./services.js');
 
 class PlantMetricSnapshotController {
     static async getAllPlantMetricSnapshots(req, res) {

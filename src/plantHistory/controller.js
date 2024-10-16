@@ -1,4 +1,4 @@
-const PlantHistoryService = require('../services/plantHistoryService.js');
+const PlantHistoryService = require('./services.js');
 
 class PlantHistoryController {
     static async getAllPlantHistories(req, res) {

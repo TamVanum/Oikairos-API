@@ -1,14 +1,14 @@
-const HydroponicsRepository = require('../repositories/hydroponicsRepository.js');
-const PlantMetricsRepository = require('../repositories/plantsMetricsRepository.js');
-const PlantMetricSnapshotRepository = require('../repositories/plantMetricSnapshotRepository.js');
-const PlantHistoryRepository = require('../repositories/plantHistoryRepository.js');
+const HydroponicsRepository = require('./repository.js');
+const PlantMetricsRepository = require('../plantMetrics/repository.js');
+const PlantMetricSnapshotRepository = require('../plantMetricSnapshots/repository.js');
+const PlantHistoryRepository = require('../plantHistory/repository.js');
 
 const plantMetricSnapshotRepository = new PlantMetricSnapshotRepository();
 const plantMetricsRepository = new PlantMetricsRepository();
 const hydroponicsRepository = new HydroponicsRepository();
 const plantHistoryRepository = new PlantHistoryRepository();
 
-const { getMQTTBrokerInstance } = require('../../config/mqtt.js');
+const { getMQTTBrokerInstance } = require('../config/mqtt.js');
 
 class HydroponicsService {
     static async getAllHydroponics() {

@@ -1,4 +1,4 @@
-const PlantsMetricsRepository = require('../repositories/plantsMetricsRepository.js');
+const PlantsMetricsRepository = require('./repository.js');
 
 const plantsMetricsRepository = new PlantsMetricsRepository()
 

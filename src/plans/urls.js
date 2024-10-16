@@ -1,5 +1,5 @@
 const express = require('express');
-const PlanController = require('./planController');
+const PlanController = require('./controller');
 const router = express.Router();
 
 router.get('/', PlanController.getAllPlans);

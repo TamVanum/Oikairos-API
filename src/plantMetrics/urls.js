@@ -1,8 +1,8 @@
 const express = require('express');
-const PlantsMetricsController = require('../../controllers/plantsMetricsController.js');
+const PlantsMetricsController = require('./controller.js');
 const router = express.Router();
-const validateUser = require('../../middlewares/validateUser.js');
-const verifyFirebaseToken = require('../../middlewares/firebaseAccessTokenAuth.js');
+const validateUser = require('../accounts/middlewares/validateUser.js');
+const verifyFirebaseToken = require('../security/firebaseAccessTokenAuth.js');
 
 router.get('/me', verifyFirebaseToken, PlantsMetricsController.getPlantMetricMe);
 router.get('/', PlantsMetricsController.getAllPlantsMetrics);

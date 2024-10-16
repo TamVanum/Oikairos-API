@@ -1,5 +1,5 @@
 const socketIo = require('socket.io');
-const sendMessagesInRooms = require('./services/sockets/sendMessagesInRooms');
+const sendMessagesInRooms = require('./sockets/sendMessagesInRooms');
 
 function initSocketServer(server) {
     const io = socketIo(server, {

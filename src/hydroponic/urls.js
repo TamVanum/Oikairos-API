@@ -1,6 +1,6 @@
 const express = require('express');
-const HydroponicsController = require('../controllers/hydroponicsController.js');
-const verifyFirebaseToken = require('../../middlewares/firebaseAccessTokenAuth.js');
+const HydroponicsController = require('./controller.js');
+const verifyFirebaseToken = require('../security/firebaseAccessTokenAuth.js');
 const router = express.Router();
 
 router.get('/me', verifyFirebaseToken , HydroponicsController.getHydroponicByUserIdInArray);

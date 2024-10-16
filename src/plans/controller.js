@@ -1,5 +1,5 @@
 
-const PlanService = require('./planService.js');
+const PlanService = require('./services.js');
 // const sendEmailMailerSend = require('../utils/sendEmailMailerSend.js');
 
 class PlanController {
