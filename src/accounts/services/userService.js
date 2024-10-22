@@ -48,8 +48,14 @@ class UserService {
     }
 
     static async associateToHydroponic(hydroponicId, uid) {
-        const hydroponic = await hydroponicsRepository.associateUserToHydroponic(hydroponicId, uid);
-        return hydroponic;
+        // const hydroponic = await hydroponicsRepository.associateUserToHydroponic(hydroponicId, uid);
+        const hydroponic = await hydroponicsRepository.getById(hydroponicId);
+        if (hydroponic.users.includes(uid)) {
+            throw new Error('User already associated to hydroponic');
+        }
+        hydroponic.users.push(uid);
+        const hydroponicUpdated = await hydroponicsRepository.update(hydroponicId, hydroponic);
+        return hydroponicUpdated;
     }
 }
 

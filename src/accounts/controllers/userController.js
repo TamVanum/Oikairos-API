@@ -113,7 +113,13 @@ class UserController {
 
             res.status(200).json(hydroponic);
         } catch (error) {
-            res.status(500).json({ error: error.message });
+            if (error.message === 'User already associated to hydroponic') {
+                // Retorna un 409 Conflict si el usuario ya está asociado al hidropónico
+                res.status(409).json({ error: error.message });
+            } else {
+                // Manejo de otros errores
+                res.status(500).json({ error: error.message });
+            }
         }
     }
 

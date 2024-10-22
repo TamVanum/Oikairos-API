@@ -43,15 +43,6 @@ class HydroponicsRepository extends BaseRepository {
         return hydroponicWithPlants;
     }
 
-    async associateUserToHydroponic(hydroponicId, userId) {
-        const hydroponic = await this.getById(hydroponicId);
-        if (hydroponic.users.includes(userId)) {
-            throw new Error('User already associated to hydroponic');
-        }
-        hydroponic.users.push(userId);
-        const hydroponicUpdated = await this.update(hydroponicId, hydroponic);
-        return hydroponicUpdated;
-    }
 }
 
 module.exports = HydroponicsRepository;
