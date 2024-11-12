@@ -102,9 +102,9 @@ class HydroponicsController {
     static async startNewPlantHistoryCicle(req, res) {
         try {
             const plantHistory = await HydroponicsService.startNewPlantHistoryCicle(req.body.hydroponicId);
-            // if (req.body.plantMetricId) {
-            //     const newMetricSnapshot = await PlantMetricSnapshotService.addMetricSnapshot(req.body.hydroponicId, req.body.metricId);
-            // }
+            if (req.body.plantMetricId) {
+                const newMetricSnapshot = await PlantMetricSnapshotService.addMetricSnapshot(req.body.hydroponicId, req.body.metricId);
+            }
             const plantMetricSnapshot = await PlantMetricSnapshotService.createDefaultMetricSnapshot(req.body.hydroponicId, plantHistory, req.body.metricId);
             res.status(201).json(plantHistory);
         } catch (error) {

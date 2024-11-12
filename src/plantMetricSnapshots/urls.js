@@ -3,6 +3,7 @@ const PlantMetricSnapshotController = require('./controller');
 const router = express.Router();
 
 router.get('/', PlantMetricSnapshotController.getAllPlantMetricSnapshots);
+router.get('/collection/:hydroponicId', PlantMetricSnapshotController.getMetricsOfASnapshotCollection);
 router.get('/:id', PlantMetricSnapshotController.getPlantMetricSnapshotById);
 router.post('/', PlantMetricSnapshotController.createPlantMetricSnapshot);
 router.patch('/:id', PlantMetricSnapshotController.updatePlantMetricSnapshot);

@@ -24,7 +24,9 @@ class PlantHistoryService {
         return plantHistoryRepository.delete(id);
     }
 
-
+    static async getActualHydroponicHistory(id){
+        return plantHistoryRepository.getLatestPlantHistoryByHydroponicId(id)
+    }
 
 }
 

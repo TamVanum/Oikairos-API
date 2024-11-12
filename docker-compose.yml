@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    ports:
+      - "3000:3000"  # Port - Express API
+      - "1883:1883"  # Port - MQTT over TCP
+      - "8888:8888"  # Port - WebSocket connections to MQTT
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - .:/app
+      - /app/node_modules

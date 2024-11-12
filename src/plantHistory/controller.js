@@ -19,6 +19,15 @@ class PlantHistoryController {
         }
     }
 
+    static async getActualHydroponicHistory(req, res) {
+        try {
+            const plantHistory = await PlantHistoryService.getActualHydroponicHistory(req.params.id);
+            res.json(plantHistory);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
+
     static async createPlantHistory(req, res) {
         try {
             const plantHistory = await PlantHistoryService.createPlantHistory(req.body);

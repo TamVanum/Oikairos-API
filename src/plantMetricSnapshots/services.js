@@ -1,4 +1,5 @@
 const PlantMetricSnapshotRepository = require('./repository.js');
+const PlantsMetricsService = require("../plantMetrics/services.js")
 
 const plantMetricSnapshotRepository = new PlantMetricSnapshotRepository();
 
@@ -25,7 +26,6 @@ class PlantMetricSnapshotService {
 
     static async addMetricSnapshot(hydroponicId, plantMetricId) {
 
-        console.log("2")
         const plantMetricInstance = await plantMetricSnapshotRepository.getPlantMetricsInstanceByHydroponicId(hydroponicId);
         const plantMetricData = plantMetricInstance.data();
         const data = {
@@ -34,7 +34,6 @@ class PlantMetricSnapshotService {
             "plantMetricId": plantMetricId
         }
         
-        console.log("4")
         const plantMetricInstanceLastMetric = plantMetricData.plantMetricSnapshot[plantMetricData.plantMetricSnapshot.length - 1]
         if (plantMetricInstanceLastMetric.plantMetricId !== plantMetricId){
             plantMetricData.plantMetricSnapshot.push(data);
@@ -61,6 +60,18 @@ class PlantMetricSnapshotService {
         return createdSnapshot;
     }
     
+
+    static async getMetricsOfASnapshotCollection(hydroponicId){
+        const plantMetricsSnapshot = await plantMetricSnapshotRepository.getPlantMetricsByHydroponicId(hydroponicId);
+        plantMetricsSnapshot.plantMetricSnapshot = await Promise.all(
+            plantMetricsSnapshot.plantMetricSnapshot.map(async element => {
+                const plantMetric = await PlantsMetricsService.getPlantMetricById(element.plantMetricId);
+                element['plantMetricData'] = plantMetric; 
+                return element;
+            })
+        );
+        return plantMetricsSnapshot;
+    }
 }
 
 module.exports = PlantMetricSnapshotService;
