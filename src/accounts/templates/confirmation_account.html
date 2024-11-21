@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        background-color: #ffffff;
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #dddddd;
+        border-radius: 8px;
+      }
+      .button {
+        display: inline-block;
+        margin: 20px 0;
+        padding: 10px 20px;
+        color: #ffffff;
+        background-color: #007bff;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+      .button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Bienvenido a [Nombre del Servicio]</h2>
+      <p>Hola, hemos aprobado tu solicitud de acceso. Haz clic en el siguiente enlace para confirmar tu cuenta y configurar tu contraseña.</p>
+      <a href="{{ confirmationLink }}" class="button">Confirmar Cuenta</a>
+      <p>
+        Si el botón no funciona, copia y pega este enlace en tu navegador:
+        <br />
+        <a href="{{ confirmationLink }}">{{ confirmationLink }}</a>
+      </p>
+      <p>¡Gracias por unirte!</p>
+    </div>
+  </body>
+</html>

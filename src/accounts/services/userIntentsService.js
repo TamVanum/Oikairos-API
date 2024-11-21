@@ -1,3 +1,4 @@
+const PlanService = require("../../plans/services");
 const UserIntentsRepository = require("../repositories/userIntentsRepository");
 
 const userIntentsRepository = new UserIntentsRepository();
@@ -13,6 +14,11 @@ class UserIntentsService {
     }
 
     static async createUserIntent(userData) {
+        const planSet = await PlanService.getPlantByTag(userData.plan);
+        const plan = planSet[0];
+        const plan_data = await PlanService.formatPlanDataOnlyUtilData(plan);
+        console.log(plan_data)
+        userData.plan = plan;
         return userIntentsRepository.create(userData);
     }
 

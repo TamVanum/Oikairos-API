@@ -47,6 +47,23 @@ class PlanController {
             res.status(500).json({ error: error.message });
         }
     }
+
+    static async updatePlan(req, res) {
+        try {
+            const { id } = req.params;
+            const updatedData = req.body;
+            const updatedPlan = await PlanService.updatePlan(id, updatedData);
+
+            if (!updatedPlan) {
+                return res.status(404).json({ message: 'Plan not found' });
+            }
+
+            res.status(200).json(updatedPlan);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Internal Server Error' });
+        }
+    }
 }
 
 module.exports = PlanController;

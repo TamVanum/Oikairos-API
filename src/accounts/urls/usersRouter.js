@@ -13,6 +13,7 @@ router.get('/me', verifyFirebaseToken, UserController.getMe);
 router.get('/', verifyFirebaseToken, validateUserRole, UserController.getAllUsers);
 router.get('/:id', UserController.getUserById);
 router.post('/', validateUser, UserController.createUser);
+router.post('/customer', validateUser, UserController.createCustomerUser);
 router.put('/:id', UserController.updateUser);
 router.delete('/:id', UserController.deleteUser);
 router.post('/uid/', UserController.getUserByUid);

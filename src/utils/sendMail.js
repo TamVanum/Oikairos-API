@@ -20,7 +20,7 @@ const sendMail = async (email, subject, text) => {
             to: email, // list of receivers
             subject: subject, // Subject line
             // text: text, // plain text body
-            html: `<a>${text}</a>`, // html body
+            html: `${text}`, // html body
         });
         console.log("Correo enviado exitosamente a", email);
     } catch (error) {

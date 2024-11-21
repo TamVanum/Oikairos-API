@@ -7,6 +7,10 @@ class PlanService {
         return planRepository.getAll();
     }
 
+    static async getPlantByTag(tag){
+        return planRepository.getPlantByTag(tag)
+    }
+
     static async getPlanById(id) {
         return planRepository.getById(id);
     }
@@ -24,6 +28,16 @@ class PlanService {
     static async deletePlan(id) {
         return planRepository.delete(id);
     }
+
+    static async formatPlanDataOnlyUtilData(plan){
+        delete plan.items
+        delete plan.callToAction
+        delete plan.hasRibbon
+        delete plan.ribbonTitle
+        delete plan.created_at
+        return plan
+    }
+
 }
 
 module.exports = PlanService;

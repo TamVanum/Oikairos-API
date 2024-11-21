@@ -37,6 +37,31 @@ class UserController {
         }
     }
 
+    static async createCustomerUser(req, res) {
+        try {
+            const authUser = await AuthService.createUser(req.body.email, req.body.password);
+            req.body.auth_uid = authUser.uid;
+            delete req.body.password;
+            delete req.body.status;
+            
+            const userIntentId = req.body.id;
+            delete req.body.id;
+
+            const user_data = {
+                ...req.body,
+                isAdmin: false,
+                user_intent_id: userIntentId,
+            };
+
+            const user = await UserService.createUser(user_data);
+            // sendEmailMailerSend([user.email], 'Bienvenido', 'Gracias por registrarte en nuestra plataforma', "sadasdas");
+            const create_default_metric = await PlantsMetricsService.createDefaultMetric(user.auth_uid);
+            res.status(201).json(user);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
+
     static async updateUser(req, res) {
         try {
             const user = await UserService.updateUser(req.params.id, req.body);

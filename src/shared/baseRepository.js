@@ -9,6 +9,11 @@ class BaseRepository {
         return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     }
 
+    async getPlantByTag(tag) {
+        const snapshot = await this.collection.where('name', '==', tag).get();
+        return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    }
+
     async getById(id) {
         const doc = await this.collection.doc(id).get();
         if (!doc.exists) {
