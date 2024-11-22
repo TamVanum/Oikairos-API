@@ -27,6 +27,9 @@ class UserController {
             const authUser = await AuthService.createUser(req.body.email, req.body.password);
             req.body.auth_uid = authUser.uid;
             delete req.body.password;
+            if (req.body.disclaimer) {
+                delete req.body.disclaimer;
+            }
             const user = await UserService.createUser(req.body);
             // quitar el comentario para enviar el correo
             // sendEmailMailerSend([user.email], 'Bienvenido', 'Gracias por registrarte en nuestra plataforma', "sadasdas");
@@ -43,7 +46,9 @@ class UserController {
             req.body.auth_uid = authUser.uid;
             delete req.body.password;
             delete req.body.status;
-            
+            if (req.body.disclaimer) {
+                delete req.body.disclaimer;
+            }
             const userIntentId = req.body.id;
             delete req.body.id;
 

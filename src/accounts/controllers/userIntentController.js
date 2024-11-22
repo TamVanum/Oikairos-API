@@ -40,7 +40,8 @@ class UserIntentController {
             }
             req.body.status = "pending";
             const userIntent = await UserIntentsService.createUserIntent(req.body);
-            res.status(201).json(userIntent);
+            // res.status(201).json(userIntent);
+            res.redirect('http://localhost:4321/petition-sended')
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
