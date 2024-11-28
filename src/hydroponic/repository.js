@@ -16,6 +16,11 @@ class HydroponicsRepository extends BaseRepository {
         return hydroponicsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     }
 
+    async getCountHydroponicByUserIdInArray(userId) {
+        const hydroponicsSnapshot = await this.collection.where('users', 'array-contains', userId).get();
+        return hydroponicsSnapshot.size;
+    }
+
     async getHydroponicWithPlants() {
         const hydroponics = await this.getAll();
         const hydroponicWithPlants = await Promise.all(hydroponics.map(async hydroponic => {

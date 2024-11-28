@@ -14,10 +14,11 @@ router.get('/', verifyFirebaseToken, validateUserRole, UserController.getAllUser
 router.get('/:id', UserController.getUserById);
 router.post('/', validateUser, UserController.createUser);
 router.post('/customer', UserController.createCustomerUser);
-router.put('/:id', UserController.updateUser);
+router.patch('/:id', UserController.updateUser);
 router.delete('/:id', UserController.deleteUser);
 router.post('/uid/', UserController.getUserByUid);
 router.patch('/me/avatar', verifyFirebaseToken, upload.single('file'), (req, res) => UserController.uploadProfilePicture(req, res));
 router.patch('/me', verifyFirebaseToken, UserController.updateMe);
 router.post('/me/hydroponic/', verifyFirebaseToken, UserController.associateToHydroponic);
+router.get('/me/hydroponic/', verifyFirebaseToken, UserController.getCountHydroponic);
 module.exports = router;

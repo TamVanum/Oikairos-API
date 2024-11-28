@@ -6,7 +6,7 @@ const PlantsMetricsService = require('../../plantMetrics/services.js');
 class UserController {
     static async getAllUsers(req, res) {
         try {
-            const users = await UserService.getAllUsers();
+            const users = await UserService.getAllUsersWithPlanData();
             res.json(users);
         } catch (error) {
             res.status(500).json({ error: error.message });
@@ -134,21 +134,31 @@ class UserController {
         }
     }
 
+    static async getCountHydroponic(req, res) {
+        try {
+            const uid = req.user.uid
+            const count = await UserService.getHydroponicCount(uid);
+            res.status(200).json({ "vinculados": count });
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
+
     static async associateToHydroponic(req, res) {
         try {
             const hydroponicId = req.body.hydroponicId;
             const uid = req.user.uid;
-
+            await UserService.validateHydroponicAlreadyAsoiatedToUser(hydroponicId, uid)
+            await UserService.validateHydroponicCapacityiByPlan(uid);
             const hydroponic = await UserService.associateToHydroponic(hydroponicId, uid);
-
             res.status(200).json(hydroponic);
         } catch (error) {
-            if (error.message === 'User already associated to hydroponic') {
-                // Retorna un 409 Conflict si el usuario ya está asociado al hidropónico
+            if (error.message === 'Max capacity of hydroponics reached') {
+                res.status(403).json({ error: error.message });
+            } else if (error.message === 'User already associated to hydroponic') {
                 res.status(409).json({ error: error.message });
             } else {
-                // Manejo de otros errores
-                res.status(500).json({ error: error.message });
+                res.status(500).json({ error: 'An unexpected error occurred', details: error.message });
             }
         }
     }

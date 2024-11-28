@@ -10,8 +10,6 @@ class UserRepository extends BaseRepository {
     async getUserByUid(uid) {
         try {
             const snapshot = await this.collection.where('auth_uid', '==', uid).get();
-
-            console.log("snapshot", snapshot);
             if (snapshot.empty) {
                 throw new Error('User not found');
             }
